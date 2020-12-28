@@ -16,7 +16,6 @@ const UserInfo = () => {
   ];
   return <section className="section">
     <Wrapper className="section-center">
-      {/* use spread operator to pass the object props ... */}
         { items.map(item =>{
           return <Item  key={item.id} {...item}/>
         })}
