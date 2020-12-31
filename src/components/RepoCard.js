@@ -32,8 +32,7 @@ const RepoCard = () => {
 
   return <section className="section">
     <Wrapper className="section-center">
-        { repos.map(repo =>{
-          console.log(repo);
+        { Array(repos).map(repo =>{
           return <Item  key={repo.id} repo={repo}/>
         })}
     </Wrapper>
@@ -41,6 +40,7 @@ const RepoCard = () => {
 };
 
  const Item = ({repo}) =>{
+   console.log(repo);
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;  
 
