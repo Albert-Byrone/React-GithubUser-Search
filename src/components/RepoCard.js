@@ -1,111 +1,78 @@
 import React from 'react';
 import { GithubContext } from '../context/context';
 import styled from 'styled-components';
-import { MdBusiness, MdLocationOn, MdLink } from 'react-icons/md';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
+
+const useStyles = makeStyles({
+  root: {
+    minWidth: 275,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+});
+
 const RepoCard = () => {
-    const { repos } = React.useContext(GithubContext);
+  const { repos } = React.useContext(GithubContext);
+  
 
-
-    return <section className="section">
-        <Wrapper className="section-center">
-        {/* use spread operator to pass the object props ... */}
-        { repos.map((repo)=>{
-            const{ name} = repo;
-            return <Item  key={repo.id} repo={repo}/>
-            })}
-        </Wrapper>
+  return <section className="section">
+    <Wrapper className="section-center">
+        { repos.map(repo =>{
+          console.log(repo);
+          return <Item  key={repo.id} repo={repo}/>
+        })}
+    </Wrapper>
   </section>;
 };
 
+ const Item = ({repo}) =>{
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;  
 
-const Item = ({repo}) =>{
-    return <article className="item">
-    <div>
-      <h3>{ repo.name}</h3>
-      <p>{repo.description}</p>
-    </div>
-  </article>
-  } 
-  
-
-const Wrapper = styled.article`
-  background: var(--clr-white);
-  padding: 1.5rem 2rem; 
-  border-top-right-radius: var(--radius);
-  border-bottom-left-radius: var(--radius);
-  border-bottom-right-radius: var(--radius);
-  position: relative;
-  &::before {
-    content: 'user';
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(-100%);
+   return  <Card className={classes.root}>
+      <CardContent>
+   <h4 className={classes.title}>{repo.name}</h4>
+   <Typography variant="body2" component="p">
+     {repo.description ? repo.description : "No descritpion" }
+   </Typography>
+ </CardContent>
+   </Card>
+ }
+const Wrapper = styled.section`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem 2rem;
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .item {
+    border-radius: var(--radius);
+    padding: 1rem 2rem;
     background: var(--clr-white);
-    color: var(--clr-grey-5);
-    border-top-right-radius: var(--radius);
-    border-top-left-radius: var(--radius);
-    text-transform: capitalize;
-    padding: 0.5rem 1rem 0 1rem;
-    letter-spacing: var(--spacing);
-    font-size: 1rem;
-  }
-  header {
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    column-gap: 1rem;
-    margin-bottom: 1rem;
-    img {
-      width: 75px;
-      height: 75px;
-      border-radius: 50%;
-    }
-    h4 {
-      margin-bottom: 0.25rem;
-    }
-    p {
-      margin-bottom: 0;
-    }
-    a {
-      color: var(--clr-primary-5);
-      border: 1px solid var(--clr-primary-5);
-      padding: 0.25rem 0.75rem;
-      border-radius: 1rem;
-      text-transform: capitalize;
-      letter-spacing: var(--spacing);
-      transition: var(--transition);
-      cursor: pointer;
-      &:hover {
-        background: var(--clr-primary-5);
-        color: var(--clr-white);
-      }
-    }
+    grid-template-columns: auto 1fr;
+    column-gap: 3rem;
+    object-fit: contain;
+
   }
-  .bio {
-    color: var(--clr-grey-3);
-  }
-  .links {
-    p,
-    a {
-      margin-bottom: 0.25rem;
-      display: flex;
-      align-items: center;
-      svg {
-        margin-right: 0.5rem;
-        font-size: 1.3rem;
-      }
-    }
-    a {
-      color: var(--clr-primary-5);
-      transition: var(--transition);
-      svg {
-        color: var(--clr-grey-5);
-      }
-      &:hover {
-        color: var(--clr-primary-3);
-      }
-    }
+  .links{
+    position:absolute;
   }
 `;
+
 export default RepoCard;
