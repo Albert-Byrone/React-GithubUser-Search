@@ -32,8 +32,8 @@ const RepoCard = () => {
 
   return <section className="section">
     <Wrapper className="section-center">
-        { Array(repos).map(repo =>{
-          return <Item  key={repo.id} repo={repo}/>
+        { repos.map((repo)=>{
+          return <Item key={repo.id} {...repo}/>
         })}
     </Wrapper>
   </section>;
