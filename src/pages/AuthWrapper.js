@@ -3,6 +3,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 import loadingGif from '../images/preloader.gif';
 import styled from 'styled-components';
   const {isLoading,error} = useAuth0();
+  if(isLoading){
+    return <Wrapper><img src={loadingGif} alt="loading"/></Wrapper>
+  }
 }
 
 const Wrapper = styled.section`
