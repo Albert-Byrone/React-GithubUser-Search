@@ -29,7 +29,10 @@ const useStyles = makeStyles({
 const RepoCard = () => {
   const { repos } = React.useContext(GithubContext);
   
-
+  
+  // { Array(repos).map(repo =>{
+  //   return <Item  key={repo.id} repo={repo}/>
+  // })}
   return <section className="section">
     <Wrapper className="section-center">
         { repos.map((repo)=>{
@@ -39,16 +42,15 @@ const RepoCard = () => {
   </section>;
 };
 
- const Item = ({repo}) =>{
-   console.log(repo);
+ const Item = ({name, description}) =>{
+  // const { name,description }= repo;
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;  
 
    return  <Card className={classes.root}>
       <CardContent>
-   <h4 className={classes.title}>{repo.name}</h4>
+   <h4 className={classes.title}>{name}</h4>
    <Typography variant="body2" component="p">
-     {repo.description ? repo.description : "No descritpion" }
+     {description ? description : "No descritpion" }
    </Typography>
  </CardContent>
    </Card>
