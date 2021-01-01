@@ -6,6 +6,8 @@ const Navbar = () => {
   const { isAuthenticated,  loginWithRedirect, logout, user} = useAuth0();
   const isUser = isAuthenticated && user ;
     { isUser && user.picture && <img src={user.picture} alt={user.name} />}
+    { isUser && user.name && <h3>Welcome, <strong>{user.name.toUpperCase()}</strong></h3>}
+
 };
 
 const Wrapper = styled.nav`
