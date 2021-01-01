@@ -2,7 +2,7 @@ import React from 'react';
 import { GithubContext } from '../context/context';
 import styled from 'styled-components';
 import { GoRepo, GoGist } from 'react-icons/go';
-import { FiUsers, FiUserPlus, FiUserMinus } from 'react-icons/fi';
+import { FiUsers, FiUserMinus } from 'react-icons/fi';
 
 const UserInfo = () => {
   const { githubUser } = React.useContext(GithubContext);
