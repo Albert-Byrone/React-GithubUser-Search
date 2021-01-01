@@ -26,17 +26,22 @@ const GithubProvider = ({ children }) =>{
         if(response){
             setGithubUser(response.data);
             const { login, followers_url } = response.data;
-             //repos
-            //https://api.github.com/users/Albert-Byrone/repos?per_page=30
-            axios(`${rootUrl}/users/${login}?per_pages=30`).then((response)=>{
-                setRepos(response.data)
-            }).catch(err=>console.log(err))
-            // followers
-            //https://api.github.com/users/Albert-Byrone/followers
-            axios(`${followers_url}?per_pages=30`).then((response)=>{
-                setFollowers(response.data)
-            }).catch(err=>console.log(err))
-        }else{
+            // [Repos](https://api.github.com/users/Albert-Byrone/repos?per_page=100)
+
+            await Promise.allSettled([axios(`${rootUrl}/users/${login}/repos?per_pages=30`),axios(`${followers_url}?per_pages=30`)])
+                .then((results)=>{
+                    const [ repos, followers] = results;
+                    const status = "fulfilled";
+
+                    if(repos.status === status){
+                        console.log(repos.value.data)
+                        setRepos(repos.value.data);
+                    }
+                    if (followers.status === status){
+                        setFollowers(followers.value.data);
+                    }
+                }).catch(err => console.log(err))
+        } else{
             toggleError(true, "The user does not exist")
         }
         checkRequests();
