@@ -5,6 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 const Navbar = () => {
   const { isAuthenticated,  loginWithRedirect, logout, user} = useAuth0();
   const isUser = isAuthenticated && user ;
+    { isUser && user.picture && <img src={user.picture} alt={user.name} />}
 };
 
 const Wrapper = styled.nav`
