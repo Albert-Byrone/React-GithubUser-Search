@@ -6,6 +6,9 @@ import styled from 'styled-components';
   if(isLoading){
     return <Wrapper><img src={loadingGif} alt="loading"/></Wrapper>
   }
+  if(error){
+    return <Wrapper><h1>{error.message}</h1></Wrapper>
+  }
 }
 
 const Wrapper = styled.section`
